@@ -1,0 +1,4 @@
+User_name = admin
+Password = admin@321
+
+URL = "http://hublibrt.com:2001"
