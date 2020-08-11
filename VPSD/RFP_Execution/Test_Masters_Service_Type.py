@@ -9,6 +9,7 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+Service_count1 = 0
 class Test_Masters_Service_Type:
 
     @pytest.fixture()
@@ -53,22 +54,20 @@ class Test_Masters_Service_Type:
         Service_Type_count = self.driver.find_element_by_xpath("//*[@id='scoop']/div[2]/div/div/div/mastertype/div[2]/div/div/extended-grid-cmp/div[2]/div/div[2]").text
         logging.info("Number of Service Types in VPSD app is : %s", Service_Type_count)
         count = 0
-        Service_Type_count1 = 0
+        global Service_count1
         for i in Service_Type_count:
             if count:
-                Service_Type_count1 = i
+                Service_count1 = i
             if i == ':':
                 count = 1
 
-        assert Service_Type_count1 == '6'
+        assert Service_count1 == '6'
 
         logging.info("Service Type count is %s then Service Type count is as expected, Please continue",
-                     Service_Type_count1)
+                     Service_count1)
 
 
     def test_Service_Type_Names(self,setup):
-
-
 
         self.driver.find_element_by_xpath("//*[@id='scoop']/div[2]/div/sidemenu-cmp/nav/div/div/ul/li[5]/a/span[2]").click()
         time.sleep(3)

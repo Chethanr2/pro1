@@ -1,6 +1,9 @@
 import allure
 import pytest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 import time
 import logging
 
@@ -19,9 +22,10 @@ class Test_Masters_Route_Variant:
         self.driver = webdriver.Chrome()
         self.driver.get("http://nechubli.com:5001/")
         self.driver.implicitly_wait(40)
+        UserName = WebDriverWait(self.driver,10).until(EC.presence_of_element_located((By.NAME, 'userID')))
         self.driver.maximize_window()
 
-        UserName = self.driver.find_element_by_name('userID')
+        #UserName = self.driver.find_element_by_name('userID')
         UserName.clear()
         UserName.send_keys('VPSD')
         Password = self.driver.find_element_by_name('password')
@@ -50,8 +54,7 @@ class Test_Masters_Route_Variant:
         self.driver.find_element_by_xpath(
             "//*[@id='scoop']/div[2]/div/sidemenu-cmp/nav/div/div/ul/li[5]/a/span[2]").click()
         time.sleep(3)
-        self.driver.find_element_by_xpath(
-            "//*[@id='scoop']/div[2]/div/sidemenu-cmp/nav/div/div/ul/li[5]/div/div/div[2]/ul/li[7]/a").click()
+        self.driver.find_element_by_xpath("//*[@id='scoop']/div[2]/div/sidemenu-cmp/nav/div/div/ul/li[5]/div/div/div[2]/ul/li[7]/a").click()
         time.sleep(4)
         Route_variant_count = self.driver.find_element_by_xpath(
             "//*[@id='scoop']/div[2]/div/div/div/mastertype/div[2]/div/div/extended-grid-cmp/div[2]/div/div[2]").text
